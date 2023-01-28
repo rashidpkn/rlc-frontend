@@ -1,8 +1,17 @@
 import React from 'react'
+import Main from './components/Main'
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 
 function AdminDashboard() {
   return (
-    <div>AdminDashboard</div>
+    <div className='flex h-screen'>
+      <Sidebar/>
+      <div className="h-screen w-[calc(100%-5rem)] lg:w-[75%]">
+        <Navbar/>
+        <Main/>
+      </div>
+    </div>
   )
 }
 

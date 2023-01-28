@@ -15,7 +15,7 @@ import FAQ from "./pages/static/faq";
 import TermsAndConditions from "./pages/static/TermsAndConditions";
 
 function App() {
-  const {token,role} = useSelector(state=>state.user)
+  const { token, role } = useSelector((state) => state.user);
 
   return (
     <div className="App  font-inter">
@@ -42,13 +42,7 @@ function App() {
 
         <Route
           path="/auth"
-          element={
-            token ? (
-              <Navigate to={"/dashboard"} />
-            ) : (
-              <Auth />
-            )
-          }
+          element={token ? <Navigate to={"/dashboard"} /> : <Auth />}
         />
 
         <Route
@@ -62,6 +56,21 @@ function App() {
 
         <Route
           path="/dashboard"
+          element={
+            token ? (
+              role === "admin" ? (
+                <AdminDashboard />
+              ) : (
+                <UserDashboard />
+              )
+            ) : (
+              <Navigate to={"/auth"} />
+            )
+          }
+        />
+
+        <Route
+          path="/dashboard/:menu"
           element={
             token ? (
               role === "admin" ? (
