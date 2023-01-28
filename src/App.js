@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/404";
 import Auth from "./pages/auth/login";
@@ -14,6 +15,8 @@ import FAQ from "./pages/static/faq";
 import TermsAndConditions from "./pages/static/TermsAndConditions";
 
 function App() {
+  const {token,role} = useSelector(state=>state.user)
+
   return (
     <div className="App  font-inter">
       <Routes>
@@ -40,37 +43,37 @@ function App() {
         <Route
           path="/auth"
           element={
-            sessionStorage.token ? <Navigate to={"/dashboard"} /> : <Auth />
+            token ? (
+              <Navigate to={"/dashboard"} />
+            ) : (
+              <Auth />
+            )
           }
         />
 
         <Route
           path="/register"
-          element={
-            sessionStorage.token ? <Navigate to={"/dashboard"} /> : <Outlet />
-          }
+          element={token ? <Navigate to={"/dashboard"} /> : <Outlet />}
         >
           <Route index element={<Navigate to={"/register/user"} />} />
           <Route path="user" element={<UserSignup />} />
           <Route path="advertiser" element={<AdvertiserSignup />} />
         </Route>
-          
-        
-          <Route
-            path="/dashboard"
-            element={
-              sessionStorage.token ? (
-                sessionStorage.role === "admin" ? (
-                  <AdminDashboard />
-                ) : (
-                  <UserDashboard />
-                )
+
+        <Route
+          path="/dashboard"
+          element={
+            token ? (
+              role === "admin" ? (
+                <AdminDashboard />
               ) : (
-                <Navigate to={"/auth"} />
+                <UserDashboard />
               )
-            }
-           />
-        
+            ) : (
+              <Navigate to={"/auth"} />
+            )
+          }
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -79,5 +82,3 @@ function App() {
 }
 
 export default App;
-
-
