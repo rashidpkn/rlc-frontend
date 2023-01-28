@@ -1,25 +1,83 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import NotFound from "./pages/404";
+import Auth from "./pages/auth/login";
+import AdvertiserSignup from "./pages/auth/signup/advertiser/AdvertiserSignup";
+import UserSignup from "./pages/auth/signup/user/UserSignup";
+import AdminDashboard from "./pages/dashboard/admin";
+import UserDashboard from "./pages/dashboard/user";
+import Home from "./pages/home";
+import Footer from "./pages/shared/Footer";
+import Navbar from "./pages/shared/Navbar";
+import About from "./pages/static/about";
+import FAQ from "./pages/static/faq";
+import TermsAndConditions from "./pages/static/TermsAndConditions";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="App  font-inter">
+      <Routes>
+        {/* staticPages */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <Outlet />
+              <Footer />
+            </>
+          }
         >
-          Learn React
-        </a>
-      </header>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
+        </Route>
+
+        <Route
+          path="/auth"
+          element={
+            sessionStorage.token ? <Navigate to={"/dashboard"} /> : <Auth />
+          }
+        />
+
+        <Route
+          path="/register"
+          element={
+            sessionStorage.token ? <Navigate to={"/dashboard"} /> : <Outlet />
+          }
+        >
+          <Route index element={<Navigate to={"/register/user"} />} />
+          <Route path="user" element={<UserSignup />} />
+          <Route path="advertiser" element={<AdvertiserSignup />} />
+        </Route>
+          
+        
+          <Route
+            path="/dashboard"
+            element={
+              sessionStorage.token ? (
+                sessionStorage.role === "admin" ? (
+                  <AdminDashboard />
+                ) : (
+                  <UserDashboard />
+                )
+              ) : (
+                <Navigate to={"/auth"} />
+              )
+            }
+           />
+        
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
 
 export default App;
+
+
