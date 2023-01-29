@@ -7,7 +7,10 @@ import AdvertiserSignup from "./pages/auth/signup/advertiser/AdvertiserSignup";
 import UserSignup from "./pages/auth/signup/user/UserSignup";
 import AdminDashboard from "./pages/dashboard/admin";
 import UserDashboard from "./pages/dashboard/user";
+import Filter from "./pages/filter";
 import Home from "./pages/home";
+import NewAds from "./pages/newAds";
+import Profile from "./pages/profile";
 import Footer from "./pages/shared/Footer";
 import Navbar from "./pages/shared/Navbar";
 import About from "./pages/static/about";
@@ -20,7 +23,6 @@ function App() {
   return (
     <div className="App  font-inter">
       <Routes>
-        {/* staticPages */}
         <Route
           path="/"
           element={
@@ -38,6 +40,8 @@ function App() {
             path="/terms-and-conditions"
             element={<TermsAndConditions />}
           />
+          <Route path='/filter' element={<Filter />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Route>
 
         <Route
@@ -83,6 +87,12 @@ function App() {
             )
           }
         />
+
+        <Route
+          path="/new-ads"
+          element={
+            (token && role === 'advertiser') ? <NewAds /> : <Navigate to={"/auth"} />
+          } />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
