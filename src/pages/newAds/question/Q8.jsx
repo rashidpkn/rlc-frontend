@@ -6,7 +6,7 @@ import { useDropzone } from 'react-dropzone'
 import { useSelector, useDispatch } from 'react-redux'
 
 import BackendIP from '../../../BackendIP'
-import { setGallery, setProfilePhoto } from '../../../redux/slice/adsSlice'
+import { clearGallery, setGallery, setProfilePhoto } from '../../../redux/slice/adsSlice'
 
 function Q8() {
     return (
@@ -23,6 +23,7 @@ export default Q8
 const ProfilePhoto = () => {
     const dispatch = useDispatch()
     const { username } = useSelector(state => state.user)
+    const { adsTitle } = useSelector(state => ads)
     const [preview, setPreview] = useState('')
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
@@ -33,10 +34,10 @@ const ProfilePhoto = () => {
         onDrop: acceptedFiles => {
             setPreview(URL.createObjectURL(acceptedFiles[0]))
             const data = new FormData()
-            data.append('name', username)
+            data.append('name', adsTitle)
             data.append('profile', acceptedFiles[0])
             axios.post(`${BackendIP}/upload/profile`, data).then(res => { window.alert('Profile is Uploaded') }).then(res => {
-                dispatch(setProfilePhoto(`/files/${username}-${acceptedFiles[0].name}`))
+                dispatch(setProfilePhoto(`/files/${adsTitle}-${acceptedFiles[0].name}`))
             })
         }
     });
@@ -61,7 +62,7 @@ const ProfilePhoto = () => {
 
 const Gallery = () => {
     const dispatch = useDispatch()
-    const { username } = useSelector(state => state.user)
+    const { adsTitle } = useSelector(state => ads)
     const [preview, setPreview] = useState([])
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
         accept: {
@@ -69,13 +70,13 @@ const Gallery = () => {
         },
         maxFiles: 5,
         onDrop: acceptedFiles => {
+            dispatch(clearGallery())
             setPreview([])
             const data = new FormData()
-            data.append('name', username)
+            data.append('name', adsTitle)
             acceptedFiles.map(e => data.append('gallery', e))
             axios.post(`${BackendIP}/upload/gallery`, data).then(res => { window.alert('Gallery images is Uploaded') })
-            acceptedFiles.map(e => dispatch(setGallery(`/files/${username}-${e.name}`)))
-
+            acceptedFiles.map(e => dispatch(setGallery(`/files/${adsTitle}-${e.name}`)))
         }
     });
 

@@ -81,8 +81,8 @@ const adsSlice = createSlice({
             state.service[index].charge = charge
         },
         setProfilePhoto(state, { payload }) { state.profilePhoto = payload },
-        setGallery(state, { payload }) { state.gallery.push(payload) }
-
+        setGallery(state, { payload }) { state.gallery.push(payload) },
+        clearGallery(state, { payload }) { state.gallery = [] }
     }
 });
 
@@ -90,7 +90,7 @@ export const {
     setAdsTitle, setInto, setPhone, setLocation, setNationality, setLanguage,
     setEye, setHair, setMesurement, setSocialMedia, setHeight, setWeight, setAge,
     setCurrencyType, setOutCall, setInCall, addService, removeService, setServiceCharge,
-    setProfilePhoto, setGallery
+    setProfilePhoto, setGallery, clearGallery
 } = adsSlice.actions
 
 export default adsSlice.reducer
