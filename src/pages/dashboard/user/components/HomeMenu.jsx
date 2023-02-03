@@ -7,11 +7,11 @@ function HomeMenu() {
         <div className='h-full w-full space-y-5'>
             <h1 className='text-2xl font-bold'>Home</h1>
             <Buttons />
-            <div className="flex justify-center md:justify-start  w-full border-b gap-10  text-lg font-assistant mt-10">
+            {/* <div className="flex justify-center md:justify-start  w-full border-b gap-10  text-lg font-assistant mt-10">
                 <button className="border-b-[3px] border-[#6426c3]">All</button>
                 <button className="border-b-[3px]  border-[#5ecfff]">Live</button>
                 <button className="border-b-[3px]  border-[#e328af]">Blocked</button>
-            </div>
+            </div> */}
             <h1 className='text-2xl font-bold'>Price & Plans</h1>
             <Table />
         </div>
