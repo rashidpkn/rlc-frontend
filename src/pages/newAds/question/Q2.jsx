@@ -1,16 +1,27 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLanguage, setLocation, setNationality } from '../../../redux/slice/adsSlice'
+import { LocationSearchInput } from '../components/LocationSearchInput'
 import Nationality from '../components/Nationality'
 
 function Q2() {
-    const { location, nationality, language } = useSelector(state => state.ads)
+    const {  nationality, language } = useSelector(state => state.ads)
     const dispatch = useDispatch()
+
+
+
+    const getLocation = location =>{
+        dispatch(setLocation(location))
+        console.log(location)
+    }
+
+
     return (
         <div className='flex flex-col justify-center items-center gap-10 h-full'>
             <div className="Ads flex flex-col">
                 <label htmlFor="Ads">Location</label>
-                <input value={location} onChange={e => dispatch(setLocation(e.target.value))} placeholder="DownTown" id="Ads" className="h-10 w-80 md:w-64 bg-transparent border-b outline-none" type="text" />
+                {/* <input value={location} onChange={e => dispatch(setLocation(e.target.value))} placeholder="DownTown" id="Ads" className="h-10 w-80 md:w-64 bg-transparent border-b outline-none" type="text" /> */}
+                <LocationSearchInput getLocation={getLocation}/>
             </div>
 
             <div className="Ads flex flex-col">
