@@ -8,6 +8,7 @@ import UserSignup from "./pages/auth/signup/user/UserSignup";
 import AdminDashboard from "./pages/dashboard/admin";
 import UserDashboard from "./pages/dashboard/user";
 import Filter from "./pages/filter";
+import DataImport from "./pages/form";
 import Home from "./pages/home";
 import NewAds from "./pages/newAds";
 import Profile from "./pages/profile";
@@ -34,6 +35,7 @@ function App() {
           }
         >
           <Route index element={<Home />} />
+          <Route path="/import" element={<DataImport/>} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
           <Route

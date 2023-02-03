@@ -23,7 +23,7 @@ export default Q8
 const ProfilePhoto = () => {
     const dispatch = useDispatch()
     const { username } = useSelector(state => state.user)
-    const { adsTitle } = useSelector(state => ads)
+    const { adsTitle } = useSelector(state => state.ads)
     const [preview, setPreview] = useState('')
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
@@ -62,7 +62,7 @@ const ProfilePhoto = () => {
 
 const Gallery = () => {
     const dispatch = useDispatch()
-    const { adsTitle } = useSelector(state => ads)
+    const { adsTitle } = useSelector(state => state.ads)
     const [preview, setPreview] = useState([])
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
         accept: {
