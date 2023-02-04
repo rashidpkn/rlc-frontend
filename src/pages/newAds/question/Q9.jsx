@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setServiceCharge } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 
 function Q9() {
     const dispatch = useDispatch()
     const { service } = useSelector(state => state.ads)
+    useEffect(() => {
+        dispatch(setError(""))
+        dispatch(setDisableNext(false))
+        // eslint-disable-next-line
+    }, [])
     return (
         <div className='flex flex-col justify-center items-center gap-10 h-full'>
             {

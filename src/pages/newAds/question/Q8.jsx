@@ -7,8 +7,20 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import BackendIP from '../../../BackendIP'
 import { clearGallery, setGallery, setProfilePhoto } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 
 function Q8() {
+    const { profilePhoto } = useSelector(state => state.ads)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if(profilePhoto){
+          dispatch(setError(""))
+            dispatch(setDisableNext(false))
+        }else{
+          dispatch(setError("Please Provide profile photo"))
+        }
+    // eslint-disable-next-line
+      }, [profilePhoto])
     return (
         <div className="h-full w-full flex flex-col justify-center items-center gap-10">
             <ProfilePhoto />

@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAdsTitle, setInto, setPhone } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 import Country from '../components/Country'
 
 function Q1() {
   const { adsTitle, phone, intro } = useSelector(state => state.ads)
   const { code, number } = phone
+
+  useEffect(() => {
+    if(adsTitle && phone && intro){
+      dispatch(setError(""))
+        dispatch(setDisableNext(false))
+    }else{
+      dispatch(setError("Please Provide Title, Phone No and introduction"))
+    }
+// eslint-disable-next-line
+  }, [adsTitle,phone,intro])
+  
   const dispatch = useDispatch()
   return (
     <div className='flex flex-col justify-center items-center gap-10 h-full'>

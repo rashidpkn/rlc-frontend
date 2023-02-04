@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrencyType, setInCall, setOutCall } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 
 function Q6() {
     const dispatch = useDispatch()
-    const { currencyType, } = useSelector(state => state.ads)
+    const { currencyType,outCall,inCall } = useSelector(state => state.ads)
     // const { oneHourOut, twoHourOut, nightOut } = outCall
     // const { oneHourIn, twoHourIn, nightIn } = inCall
+
+    useEffect(() => {
+        if(currencyType && outCall && inCall){
+          dispatch(setError(""))
+            dispatch(setDisableNext(false))
+        }else{
+          dispatch(setError("Please Provide Currency Type ,inCall and outCall Charges"))
+        }
+    // eslint-disable-next-line
+      }, [currencyType,outCall,inCall])
+
     return (
         <div className='flex flex-col justify-center items-center gap-10 h-full'>
             <div className=" flex gap-5">

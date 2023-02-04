@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLanguage, setLocation, setNationality } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 import { LocationSearchInput } from '../components/LocationSearchInput'
 import Nationality from '../components/Nationality'
 
 function Q2() {
-    const {  nationality, language } = useSelector(state => state.ads)
+    const {  nationality, language,location } = useSelector(state => state.ads)
     const dispatch = useDispatch()
 
+
+    useEffect(() => {
+        if(nationality && language && location){
+          dispatch(setError(""))
+            dispatch(setDisableNext(false))
+        }else{
+          dispatch(setError("Please Provide Nationality,language and location"))
+        }
+    // eslint-disable-next-line
+      }, [nationality,language,location])
 
 
     const getLocation = location =>{

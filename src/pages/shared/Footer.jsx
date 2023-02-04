@@ -1,10 +1,11 @@
+import { HomeOutlined, Person, Search } from "@mui/icons-material";
 import React from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <>
-      <div className="footer  px-5 md:px-[100px] bg-[#17191E] text-white pt-3 flex flex-col gap-3 pb-5">
+      <div className="footer   px-5 md:px-[100px] bg-[#17191E] text-white pt-3 flex lg:hidden flex-col gap-3 pb-5">
         <div className="w-full  flex  justify-center items-center flex-wrap gap-x-20 gap-y-10">
           <span className="text-sm">
             Want to receive the latest listings? Subscribe to our weekly
@@ -55,7 +56,27 @@ function Footer() {
           </Link>
         </div>
       </div>
-      <div className=""></div>
+
+
+      <div className="fixed block md:hidden  -bottom-2 z-50 w-full h-[80px]">
+        <img src="/images/common/footer/footer.png" className="w-full" alt="" />
+        <Link to={'/'} >
+          <HomeOutlined fontSize="large" className=' text-white cursor-pointer absolute top-[25px] left-[70px]' />
+        </Link>
+        <div className="h-[63px] w-[63px] bg-[#AE0C37] rounded-full absolute z-50 -top-5 inset-x-0 mx-auto flex justify-center items-center">
+          <Link to={'/filter'}>
+            <Search fontSize="large" className="text-white" />
+          </Link>
+        </div>
+        <Link to={'/auth'}>
+          <Person fontSize="large" className=' text-white cursor-pointer absolute top-[25px] right-[70px]' />
+        </Link>
+      </div>
+
+      {/* <img src="/images/common/footer/home.png" className='cursor-pointer absolute top-[25px] left-[70px]' alt="" /> */}
+      {/* <img src="/images/common/footer/search.png" className='cursor-pointer' alt="" /> */}
+      {/*   <img src="/images/common/footer/profile.png" className='cursor-pointer absolute top-[25px] right-[70px]'  alt="" /> */}
+
     </>
   );
 }

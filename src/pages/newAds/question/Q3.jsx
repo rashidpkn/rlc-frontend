@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setEye, setHair, setMesurement } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 
 function Q3() {
     const dispatch = useDispatch()
     const { eye, hair, measurement } = useSelector(state => state.ads)
     const { bust, waist, hip } = measurement
+
+    useEffect(() => {
+        if(eye && hair && measurement){
+          dispatch(setError(""))
+            dispatch(setDisableNext(false))
+        }else{
+          dispatch(setError("Please Provide eye ,hair and measurement"))
+        }
+    // eslint-disable-next-line
+      }, [eye, hair, measurement])
+
     return (
         <div className='flex flex-col justify-center items-center gap-10 h-full'>
             <div className="Eye flex flex-col">

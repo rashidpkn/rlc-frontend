@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import NotFound from "./pages/404";
 import Auth from "./pages/auth/login";
 import AdvertiserSignup from "./pages/auth/signup/advertiser/AdvertiserSignup";
@@ -23,6 +23,7 @@ function App() {
 
   return (
     <div className="App  font-inter">
+      <ScrollToTop/>
       <Routes>
         <Route
           path="/"
@@ -103,3 +104,14 @@ function App() {
 }
 
 export default App;
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}

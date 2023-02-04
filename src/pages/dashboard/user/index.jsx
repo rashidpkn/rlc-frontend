@@ -10,6 +10,7 @@ import Blacklisted from './components/Blacklisted'
 import BuyFirstPage from './components/BuyFirstPage'
 import Comments from './components/Comments'
 import Earn from './components/Earn'
+import EditAds from './components/EditAds'
 import HomeMenu from './components/HomeMenu'
 import Manage from './components/Manage'
 import SettingsMenu from './components/SettingsMenu'
@@ -51,6 +52,8 @@ function UserDashboard() {
             {menu === 'comments' && <Comments />}
             {menu === 'settings' && <SettingsMenu />}
             {menu === 'blacklisted' && <Blacklisted />}
+            {menu === 'edit' && <EditAds />}
+
           </Main>
         </div>
       </div>

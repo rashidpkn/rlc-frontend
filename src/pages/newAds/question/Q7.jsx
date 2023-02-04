@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addService, removeService } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 
 function Q7() {
-    const service = [
-        'analSex', 'footFetish', 'parties', 'submissive', 'BDSM', 'frenchKissing', 'reverseOral', 'squirting',
-        'CIM_CumInMouth', 'GFE', 'givingRimming', 'tantricMassage', 'COB_CumOnBody', 'givingHardsports', 'rimmingReceiving',
-        'teabagging', 'couples', 'receivingHardsports', 'rolePlay', 'tieAndTease', 'deepThroat', 'lapDancing', 'sexToys', 'uniforms',
-        'domination', 'massage', 'spanking', 'givingWatersports', 'faceSitting', 'nuruMassage', 'strapon', 'receivingWatersports',
-        'fingering', 'oralsexBlowJob', 'striptease', 'webcamSex', 'fisting', 'OWO_OralWithoutCondom']
+    const dispatch = useDispatch()
+    const { service } = useSelector(state => state.ads)
+
+    useEffect(() => {
+        if(service.length !== 0){
+          dispatch(setError(""))
+            dispatch(setDisableNext(false))
+        }else{
+          dispatch(setError("Please Provide any services"))
+        }
+    // eslint-disable-next-line
+      }, [service])
+
+      
+    const services = [
+        'Anal sex', 'Foot fetish', 'Parties', 'Submissive', 'BDSM', 'French kissing', 'Reverse oral', 'Squirting',
+        'CIM', 'GFE', 'Giving rimming', 'Tantric massage', 'COB', 'Teabagging', 'Couples', 'Role play', 'Tie and tease', 
+        'Deep  throat', 'Lap dancing', 'Sex toys', 'Uniforms','Domination', 'Massage', 'Spanking', 'Face sitting', 
+        'Nuru massage', 'Strapon','Fingering', 'Oral sex blow job', 'Striptease', 'Webcam sex', 'Fisting', 'OWO']
     return (
         <div className='flex flex-wrap  justify-center items-center gap-5 h-full'>
             <div className="flex flex-wrap justify-center gap-3">
-                {service.map(e => <Buttons key={e} value={e} />)}
+                {services.map(e => <Buttons key={e} value={e} />)}
             </div>
         </div>
     )

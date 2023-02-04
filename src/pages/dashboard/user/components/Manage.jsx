@@ -3,6 +3,7 @@ import { Visibility } from '@mui/icons-material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import BackendIP from '../../../../BackendIP'
 import Buttons from './Buttons'
 
@@ -14,6 +15,7 @@ function Manage() {
             setAds(res.data)
         })
     }
+    const [selector, setSelector] = useState(1)
     useEffect(() => {
         fetchData()
         // eslint-disable-next-line
@@ -25,13 +27,35 @@ function Manage() {
             <Buttons />
             <h1 className='text-2xl font-bold'>Profile</h1>
             <div className="flex justify-center md:justify-start  w-full border-b gap-10  text-lg font-assistant mt-10">
-                <button className="border-b-[3px] border-[#6426c3]">All</button>
-                <button className="border-b-[3px]  border-[#5ecfff]">Live</button>
-                <button className="border-b-[3px]  border-[#e328af]">Blocked</button>
+                <button onClick={() => setSelector(1)} className={`${selector === 1 && 'border-b-[3px]'} border-[#6426c3]`}>All</button>
+                <button onClick={() => setSelector(2)} className={`${selector === 2 && 'border-b-[3px]'} border-[#5ecfff]`}>Live</button>
+                <button onClick={() => setSelector(3)} className={`${selector === 3 && 'border-b-[3px]'} border-[#e328af]`}>Blocked</button>
             </div>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                {ads.map(e => <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} />)}
-            </div>
+
+            {
+                selector === 1 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                    {ads.map(e => <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
+                </div>
+            }
+
+            {
+                selector === 2 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                    {ads.map(e => e.visibility === true && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
+                </div>
+            }
+
+            {
+                selector === 3 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                    {ads.map(e => e.visibility === false && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
+                </div>
+            }
+
+
+
+
+
+
+
         </div>
     )
 }
@@ -39,7 +63,7 @@ function Manage() {
 export default Manage
 
 
-const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData }) => {
+const Card = ({id, profilePhoto, adsTitle, view, nationality, fetchData,vacation }) => {
     return (
         <div className={` card h-96 w-64 flex flex-col  border items-center justify-center  relative z-40`}>
 
@@ -50,6 +74,13 @@ const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData }) => {
                         <input
                             type="checkbox"
                             className="sr-only peer"
+                            checked={vacation}
+                            onChange={e=>{
+                                axios.post(`${BackendIP}/ads/vacation`,{id,vacation:e.target.checked}).then(res=>{
+                                    window.alert(res.data.reason)
+                                    fetchData()
+                                })
+                            }}
                         />
                         <div className="w-11 h-6 bg-gray-200 rounded-full peer  peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
                         ></div>
@@ -83,7 +114,9 @@ const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData }) => {
 
             <div className={`h-[15%] w-full absolute bottom-5 flex justify-around items-center `}>
                 <button className='border-2 border-[#6426c3] rounded-2xl h-10 w-16 justify-center items-center flex'>Verify</button>
-                <button className='border-2 rounded-2xl h-10 w-16 border-[#5ECFFF]'>Edit</button>
+                <Link to={'/dashboard/edit'}>
+                    <button className='border-2 rounded-2xl h-10 w-16 border-[#5ECFFF]'>Edit</button>
+                </Link>
                 <button className='border-2 rounded-2xl h-10 w-16 border-[#E328AF]' onClick={() => {
                     axios.post(`${BackendIP}/ads/delete`, { adsTitle }).then(res => {
                         window.alert(res.data.reason)

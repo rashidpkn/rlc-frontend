@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSocialMedia } from '../../../redux/slice/adsSlice'
+import { setDisableNext, setError } from '../../../redux/slice/utilSlice'
 
 function Q4() {
     const { video, website, instagram, twitter, telegram, facebook, tiktok } = useSelector(state => state.ads.socialMedia)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setError(""))
+        dispatch(setDisableNext(false))
+        // eslint-disable-next-line
+    }, [])
+
     return (
         <div className='flex flex-col justify-center items-center gap-5 lg:gap-10 h-full'>
             <div className=" flex gap-5 flex-col lg:flex-row">

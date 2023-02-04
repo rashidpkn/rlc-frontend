@@ -19,6 +19,7 @@ function Manage() {
         fetchData()
     }, [])
 
+    const [selector, setSelector] = useState(1)
 
     return (
         <div className='h-full w-full space-y-5'>
@@ -27,13 +28,27 @@ function Manage() {
             <Progress />
             <h1 className='text-2xl font-bold'>Profile</h1>
             <div className="flex justify-center md:justify-start  w-full border-b gap-10  text-lg font-assistant mt-10">
-                <button className="border-b-[3px] border-[#6426c3]">All</button>
-                <button className="border-b-[3px]  border-[#5ecfff]">Live</button>
-                <button className="border-b-[3px]  border-[#e328af]">Blocked</button>
+                <button onClick={() => setSelector(1)} className={`${selector === 1 && 'border-b-[3px]'} border-[#6426c3]`}>All</button>
+                <button onClick={() => setSelector(2)} className={`${selector === 2 && 'border-b-[3px]'} border-[#5ecfff]`}>Live</button>
+                <button onClick={() => setSelector(3)} className={`${selector === 3 && 'border-b-[3px]'} border-[#e328af]`}>Blocked</button>
             </div>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                {ads.map(e => <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} />)}
-            </div>
+            {
+                selector === 1 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                    {ads.map(e => <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} />)}
+                </div>
+            }
+
+            {
+                selector === 2 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                    {ads.map(e => e.visibility === true && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} />)}
+                </div>
+            }
+
+            {
+                selector === 3 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                    {ads.map(e => e.visibility === false && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} />)}
+                </div>
+            }
         </div>
     )
 }
@@ -110,28 +125,6 @@ function Button({ color, icon, title, amount, image }) {
 const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData }) => {
     return (
         <div className={` card h-96 w-64 flex flex-col  border items-center justify-center  relative z-40`}>
-
-            <div className="absolute right-0 top-2  flex justify-center items-center gap-1 blur-none z-50">
-
-                <div className="flex">
-                    <label class="inline-flex relative items-center  cursor-pointer">
-                        <input
-                            type="checkbox"
-                            className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 bg-gray-200 rounded-full peer  peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
-                        ></div>
-                    </label>
-                </div>
-
-                <div className="group">
-                    <div className='w-4 h-4 border rounded-full flex justify-center items-center border-blue-400 text-blue-400'>i</div>
-                    <div className="hidden group-hover:flex border absolute   border-blue-400 duration-200">
-                        <p>Vacation Mode </p>
-                    </div>
-                </div>
-
-            </div>
 
             <div className={`h-[40%] w-[60%] rounded-full border absolute top-2 `}>
                 <img src={`${BackendIP}${profilePhoto}`} alt="" className='h-full w-full rounded-full object-cover' />
