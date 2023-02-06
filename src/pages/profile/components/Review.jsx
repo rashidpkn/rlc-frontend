@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Login from './Login'
 import WriteReviews from './WriteReviews'
 
-function Review() {
+function Review({ads}) {
     const [writeReview, setWriteReview] = useState(false)
     return (
         <div className=" w-full lg:w-1/2 space-y-5 flex flex-col items-center">
@@ -29,19 +29,22 @@ function Review() {
                     
                 </div>
                 {
-                    writeReview  && (sessionStorage.token ? <WriteReviews setWriteReview={setWriteReview} /> : <Login setClose={setWriteReview}/> )
+                    writeReview  && (sessionStorage.token ? <WriteReviews ads={ads} setWriteReview={setWriteReview} /> : <Login setClose={setWriteReview}/> )
                 }
 
 
             </div>
 
             <div className="h-[400px] w-full overflow-y-scroll">
-                <Rev 
+                {
+                    ads?.review?.map(e=><Rev name={e.username} rating={e.rating} title={e.title} desc={e.desc}  />)
+                }
+                {/* <Rev 
                     name={'Rashid'}                
                     rating={3}
                     title={'Good Job'}
                     review={'Somthing new '}
-                />
+                /> */}
             </div>
         </div>
     )
@@ -58,13 +61,13 @@ const Reviews = ({percent,title}) => <div className="w-full  h-[20px] flex items
     </div>
 </div>
 
-function Rev({ name,rating,review,title }) {
+function Rev({ name,rating,desc,title }) {
     return (
         <div className="w-full lg:w-[445px] h-[132px] relative text-white">
             <img src="/images/common/comment-box.png" className='h-full w-full' alt="" />
             <h3 className='absolute left-[84px] top-[10px] text-sm font-medium '>{name}</h3>
             <h3 className='absolute left-[84px] top-[35px] text-base font-medium'>{title}</h3>
-            <p className='absolute left-[84px] top-[55px] w-[347px] h-[60px] overflow-y-scroll sc text-xs'>{review}</p>
+            <p className='absolute left-[84px] top-[55px] w-[347px] h-[60px] overflow-y-scroll sc text-xs'>{desc}</p>
             <div className="absolute top-[10px] right-[30px]">
                 <Rating readOnly value={rating} />
             </div>

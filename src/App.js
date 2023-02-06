@@ -1,6 +1,8 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import BackendIP from "./BackendIP";
 import NotFound from "./pages/404";
 import Auth from "./pages/auth/login";
 import AdvertiserSignup from "./pages/auth/signup/advertiser/AdvertiserSignup";
@@ -20,6 +22,11 @@ import TermsAndConditions from "./pages/static/TermsAndConditions";
 
 function App() {
   const { token, role } = useSelector((state) => state.user);
+useEffect(() => {
+  axios.post(`${BackendIP}/analytics`).catch(err=>{
+    window.alert(err.message)
+  })
+}, [])
 
   return (
     <div className="App  font-inter">
@@ -113,5 +120,6 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  return null;
+  return null
+  
 }

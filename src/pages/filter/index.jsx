@@ -49,7 +49,7 @@ function Filter() {
                 </div> */}
             <div className="flex gap-5 flex-wrap">
                 {
-                    ads.map(e => <None adsTitle={e.adsTitle} age={e.age} introduction={e.intro} profilePhoto={e.profilePhoto} id={e.id} />)
+                    ads.map(e => e.visibility === true && e.vacation === false && <None adsTitle={e.adsTitle} age={e.age} introduction={e.intro} profilePhoto={e.profilePhoto} id={e.id} />)
                 }
             </div>
         </div>

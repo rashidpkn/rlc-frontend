@@ -22,7 +22,10 @@ function Profile() {
         axios.get(`${BackendIP}/ads/get-by-id`, { params: { id: Number(id) } }).then(res => {
             setAds(res.data);
             setPhoto(`${BackendIP}${res.data.profilePhoto}`)
-        }
+        },
+        axios.post(`${BackendIP}/analytics/profile`,{id}).catch(err=>{
+            window.alert(err.message)
+          })
         )
     }, [id])
 
@@ -61,7 +64,7 @@ function Profile() {
                 </div>
             </div>
             <div className="py-5 flex flex-col lg:flex-row  w-full  gap-5 ">
-                <Review />
+                <Review ads={ads}/>
                 <Question ads={ads} />
             </div>
 

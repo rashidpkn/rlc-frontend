@@ -24,12 +24,12 @@ const Edit = () => <div className="lg:w-[800px] bg-white p-8 flex flex-col mt-10
 
             <div className="w-full h-[52px] flex flex-col lg:flex-row justify-between items-start">
                 <label for="" className="font-bold text-sm text-[#777777]">USERNAME</label>
-                <input type="text" className="w-full lg:w-[456px] h-8 border rounded pl-3 text-base font-medium text-[#777] outline-none " readonly="" value="roshni" />
+                <input type="text" className="w-full lg:w-[456px] h-8 border rounded pl-3 text-base font-medium text-[#777] outline-none " readonly="" value={sessionStorage.username} />
             </div>
 
             <div className="w-full h-[82px] flex flex-col lg:flex-row justify-between items-start">
                 <label for="" className="font-bold text-sm text-[#777777]">EMAIL</label>
-                <input type="email" className="w-full lg:w-[456px] h-8 border rounded pl-3 text-base font-medium text-[#777] outline-none" placeholder="eg: roshni@gmail.com" />
+                <input type="email" className="w-full lg:w-[456px] h-8 border rounded pl-3 text-base font-medium text-[#777] outline-none" readOnly value={sessionStorage.email} />
             </div>
 
             <div className="w-full h-[82px] flex flex-col lg:flex-row justify-between items-start">
@@ -47,7 +47,7 @@ const Edit = () => <div className="lg:w-[800px] bg-white p-8 flex flex-col mt-10
                 <div className="w-full lg:w-[456px]">
                     <select type="text" className="w-[153px] h-[28px] border-2 pl-3 rounded text-[#777] outline-none">
                         <option value="">Available</option>
-                        <option value="">Busy</option>
+                        <option value="">Vacation</option>
                     </select>
                 </div>
             </div>

@@ -1,10 +1,13 @@
+import axios from 'axios'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import BackendIP from '../../../BackendIP'
 import Login from './Login'
 
 function Question({ads}) {
     const [question, setQuestion] = useState('')
     const [showLogin, setShowLogin] = useState(false)
+    const {username} = useSelector(state=>state.user)
     return (
         <div className=" w-full lg:w-1/2 flex flex-col space-y-5">
             <div className="flex justify-center">
@@ -12,7 +15,11 @@ function Question({ads}) {
                 onSubmit={e=>{
                     e.preventDefault()
                     if(sessionStorage.token){
-                        window.alert("Developing")
+                        axios.post(`${BackendIP}/ads/ask-question`,{id:ads.id,username,question}).then(res=>{
+                            window.alert("Yor are asked a question Please wait for replay")
+                        }).catch(err=>{
+                            window.alert(err.message)
+                        })
                     }else{
                         setShowLogin(true)
                     }
@@ -26,12 +33,10 @@ function Question({ads}) {
             </div>
             <span className="text-white text-xl  font-medium ">Questions</span>
             <div className="h-[400px] overflow-y-scroll">
-                <QNA
-                    question={'Whats is Your name ?'}
-                    answer={'My name is Bla bla'}
-                    username={'Rashid'}
-                    ads={ads}
-                />
+                {
+                    ads?.qna?.map(e=><QNA username={e.username} question={e.question} answer={e.answer} ads={ads} />)
+                }
+                
                 
             </div>
             {
