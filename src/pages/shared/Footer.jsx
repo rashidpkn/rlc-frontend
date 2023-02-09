@@ -1,11 +1,14 @@
 import { HomeOutlined, Person, Search } from "@mui/icons-material";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setShowFilter } from "../../redux/slice/utilSlice";
 
 function Footer() {
+  const dispatch = useDispatch()
   return (
     <>
-      <div className="footer   px-5 md:px-[100px] bg-[#17191E] text-white pt-3 flex lg:hidden flex-col gap-3 pb-5">
+      <div className="footer   px-5 md:px-[100px] bg-[#17191E] text-white pt-3 hidden lg:flex  flex-col gap-3 pb-5">
         <div className="w-full  flex  justify-center items-center flex-wrap gap-x-20 gap-y-10">
           <span className="text-sm">
             Want to receive the latest listings? Subscribe to our weekly
@@ -64,7 +67,7 @@ function Footer() {
           <HomeOutlined fontSize="large" className=' text-white cursor-pointer absolute top-[25px] left-[70px]' />
         </Link>
         <div className="h-[63px] w-[63px] bg-[#AE0C37] rounded-full absolute z-50 -top-5 inset-x-0 mx-auto flex justify-center items-center">
-          <Link to={'/filter'}>
+          <Link to={'/filter'} onClick={()=>{dispatch(setShowFilter())}}>
             <Search fontSize="large" className="text-white" />
           </Link>
         </div>

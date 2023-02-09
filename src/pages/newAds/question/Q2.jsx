@@ -23,7 +23,6 @@ function Q2() {
 
     const getLocation = location =>{
         dispatch(setLocation(location))
-        console.log(location)
     }
 
 

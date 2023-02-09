@@ -1,10 +1,12 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import BackendIP from '../../BackendIP'
+import Nationality from '../newAds/components/Nationality'
+import { LocationSearchInput } from './components/LocationSearchInput'
 
 function DataImport() {
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('ads')
+    const [email, setEmail] = useState('ads@redlightclub.net')
     const [ads, setAds] = useState(
         {
         adsTitle: '',
@@ -37,14 +39,14 @@ function DataImport() {
         age: 22,
         currencyType: 'AED',
         outCall: {
-          oneHourOut: 40,
-          twoHourOut: 80,
-          nightOut: 200
+          oneHourOut: 400,
+          twoHourOut: 500,
+          nightOut: 600
         },
         inCall: {
-          oneHourIn: 40,
-          twoHourIn: 80,
-          nightIn: 200
+          oneHourIn: 400,
+          twoHourIn: 500,
+          nightIn: 600
         },
         service: [],
         profilePhoto: '',
@@ -53,6 +55,7 @@ function DataImport() {
       )
 
       const publishAds = ()=>{
+        
         axios.post(`${BackendIP}/ads/create`, { ads, username, email }).then(res => {
             if (res.data.status) {
                 window.alert("Ads is created")
@@ -96,12 +99,15 @@ function DataImport() {
 
             <div className="flex flex-col gap-2 w-full md:w-96">
                 <label htmlFor="Location">Location</label>
-                <input value={ads.location} onChange={e=>setAds({...ads,location:e.target.value})} required className='border-b outline-none' type="text" />
+                <LocationSearchInput  getLocation={location=>setAds({...ads,location})} />
+                {/* <input value={ads.location} onChange={e=>setAds({...ads,location:e.target.value})} required className='border-b outline-none' type="text" /> */}
             </div>
 
             <div className="flex flex-col gap-2 w-full md:w-96">
                 <label htmlFor="Nationality">Nationality</label>
-                <input value={ads.nationality} onChange={e=>setAds({...ads,nationality:e.target.value})} required className='border-b outline-none' type="text" />
+                <select value={ads.nationality} onChange={e=>setAds({...ads,nationality:e.target.value})} required className='border-b outline-none' type="text" >
+                    <Nationality/>
+                    </select>
             </div>
 
             <div className="flex flex-col gap-2 w-full md:w-96">
@@ -111,12 +117,27 @@ function DataImport() {
 
             <div className="flex flex-col gap-2 w-full md:w-96">
                 <label htmlFor="Eye">Eye</label>
-                <input value={ads.eye} onChange={e=>setAds({...ads,eye:e.target.value})} required className='border-b outline-none' type="text" />
+                <select value={ads.eye} onChange={e=>setAds({...ads,eye:e.target.value})} required className='border-b outline-none' type="text" >
+                <option className='text-black' value="">Select Your Eye color</option>
+                    <option className='text-black' value="Brown">Brown</option>
+                    <option className='text-black' value="Blue">Blue</option>
+                    <option className='text-black' value="Hazel">Hazel</option>
+                    <option className='text-black' value="Amber">Amber</option>
+                    <option className='text-black' value="Green">Green</option>
+                    <option className='text-black' value="Gray">Gray</option>
+                </select>
             </div>
 
             <div className="flex flex-col gap-2 w-full md:w-96">
                 <label htmlFor="Hair">Hair</label>
-                <input value={ads.hair} onChange={e=>setAds({...ads,hair:e.target.value})} required className='border-b outline-none' type="text" />
+                <select value={ads.hair} onChange={e=>setAds({...ads,hair:e.target.value})} required className='border-b outline-none' type="text" >
+                <option className='text-black' value="">Select Your Hair color</option>
+                    <option className='text-black' value="Black">Black</option>
+                    <option className='text-black' value="Brown">Brown</option>
+                    <option className='text-black' value="Blond">Blond</option>
+                    <option className='text-black' value="White/Gray">White/Gray</option>
+                    <option className='text-black' value="Red">Red</option>
+                    </select>
             </div>
 
             <div className="flex flex-col gap-2 w-full md:w-96">
@@ -191,7 +212,7 @@ function DataImport() {
 
             <div className="flex flex-col gap-2 w-full md:w-96">
                 <label htmlFor="Gallery">Gallery</label>
-                <input value={ads.gallery} onChange={e=>setAds({...ads,gallery:e.target.value})}  className='border-b outline-none' type="text" />
+                <input value={ads.gallery} onChange={e=>setAds({...ads,gallery:e.target.value.split(',')})}  className='border-b outline-none' type="text" />
             </div>
 
             <button className='h-12 bg-rose-800 px-5 rounded-md text-white' type='submit'>Publish Ads</button>

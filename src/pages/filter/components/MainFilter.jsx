@@ -1,22 +1,32 @@
+import { useDispatch } from "react-redux"
+import { setAge, setEye, setHair, setNationality, setPrice } from "../../../redux/slice/filterSlice"
+import { setShowFilter } from "../../../redux/slice/utilSlice"
 import Nationality from "../../newAds/components/Nationality"
 
 const MainFilter = () => {
+    const dispatch = useDispatch()
     return (
         <div className="filtermenu w-full h-[57px]  hidden lg:flex justify-between items-center gap-[27px] text-white">
-            <select className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
+            <select
+                onChange={e=>{
+                    const {value} = e.target
+                    console.log(value);
+                    if(Number(value)===1){dispatch(setPrice({from:1,to:1000}))}
+                    if(Number(value)===2){dispatch(setPrice({from:1000,to:2000}))}
+                    if(Number(value)===3){dispatch(setPrice({from:2000,to:3000}))}
+                    if(Number(value)===4){dispatch(setPrice({from:3000,to:4000}))}
+                    if(Number(value)===5){dispatch(setPrice({from:4000,to:5000}))}
+                }}
+
+            className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
                 <option value="">Select Price Range</option>
-                <option value="800">500-800</option>
-                <option value="900">801-900</option>
-                <option value="1000">901-1000</option>
-                <option value="1100">1001-1100</option>
-                <option value="1200">1101-1200</option>
-                <option value="1300">1201-1300</option>
-                <option value="1400">1301-1400</option>
-                <option value="1500">1401-1500</option>
-                <option value="1600">1501-1600</option>
-                <option value="1700">1601-1700</option>
+                <option value={1}>1 - 1000</option>
+                <option value={2}>1000 - 2000</option>
+                <option value={3}>2000 - 3000</option>
+                <option value={4}>3000 - 4000</option>
+                <option value={5}>4000 - 5000</option>
             </select>
-            <select className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
+            <select onChange={e=>dispatch(setNationality(e.target.value))} className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
                 <Nationality color={'white'} />
             </select>
             <select className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
@@ -77,15 +87,18 @@ const MainFilter = () => {
                 <option value="Vietnamese">Vietnamese</option>
                 <option value="Zulu">Zulu</option>
             </select>
-            <select className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
+            <select onChange={e => {
+                        const { value } = e.target
+                        dispatch(setAge(value))
+                    }
+                    } className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
                 <option value="">Select Age</option>
-                <option value="20">18-20</option>
-                <option value="23">21-23</option>
-                <option value="26">24-26</option>
-                <option value="29">27-29</option>
-                <option value="32">30-32</option>
+                <option value={1}>18 - 25</option>
+                <option value={2}>25 - 30</option>
+                <option value={3}>30 - 35</option>
+                <option value={4}>35 - 40</option>
             </select>
-            <select className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
+            <select onChange={e=>dispatch(setEye(e.target.value))} className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
                 <option value="">Select Eye</option>
                 <option value="Brown">Brown</option>
                 <option value="Blue">Blue</option>
@@ -94,7 +107,7 @@ const MainFilter = () => {
                 <option value="Green">Green</option>
                 <option value="Gray">Gray</option>
             </select>
-            <select className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
+            <select onChange={e=>{dispatch(setHair(e.target.value))}} className="bg-[#17191E] w-[155px] h-[27px] rounded-lg outline-none">
                 <option value="">Select Hair</option>
                 <option value="Black">Black</option>
                 <option value="Brown">Brown</option>
@@ -102,7 +115,7 @@ const MainFilter = () => {
                 <option value="White/Gray">White/Gray</option>
                 <option value="Red">Red</option>
             </select>
-            <button className="bg-[#17191E] w-[27px] h-[27px] rounded-lg">+</button>
+            <button className="bg-[#17191E] w-[27px] h-[27px] rounded-lg" onClick={() => { dispatch(setShowFilter()) }}>+</button>
             <button className="bg-[#006EF8] w-[94px] h-[27px] rounded-lg">Search</button>
         </div>
     )

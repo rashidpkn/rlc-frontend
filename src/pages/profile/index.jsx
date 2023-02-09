@@ -30,12 +30,12 @@ function Profile() {
     }, [id])
 
     return (
-        <div className='w-full px-[5%]'
+        <div className='w-full lg:px-[5%]'
             style={{ background: 'linear-gradient(rgb(161, 140, 209) 0%, rgb(251, 194, 235) 100%) 0% 0% no-repeat padding-box padding-box transparent' }}>
             <div className="h-36 w-full bg-white"></div>
             <Links id={ads.id} />
 
-            <div className="w-full lg:hidden bg-white p-2 ">
+            <div className="w-full lg:hidden bg-white p-1">
                 <div className="w-full flex justify-between items-center h-14">
                     <Title ads={ads} />
                 </div>
@@ -63,7 +63,7 @@ function Profile() {
 
                 </div>
             </div>
-            <div className="py-5 flex flex-col lg:flex-row  w-full  gap-5 ">
+            <div className="px-2 lg:px-0 py-5 flex flex-col lg:flex-row  w-full  gap-5 ">
                 <Review ads={ads}/>
                 <Question ads={ads} />
             </div>

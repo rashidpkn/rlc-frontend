@@ -1,43 +1,42 @@
-import { Link } from "react-router-dom"
+import { NavigateBefore, NavigateNext } from '@mui/icons-material'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import BackendIP from '../../../BackendIP'
 
-const Screen2 = () => {
-  return (
-    <div className="bg-[#D3135A]  w-full z-50 relative flex flex-col lg:flex-row justify-center items-center gap-10 text-white font-roboto py-10">
-      <img src="/image/home/ellipse2.png" className='w-[227px] h-[227px] absolute bottom-0  z-50 -left-[110px] hidden lg:block' alt="" />
-      <div className="w-full lg:w-1/2 flex flex-col justify-center  px-10 lg:px-[100px] gap-10">
-        <h1 className='text-5xl font-bold'>Red Light Club</h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto est beatae cupiditate inventore, nam ipsa quisquam quo vel maiores consectetur nesciunt fuga fugiat officiis nulla, id, tempore repudiandae incidunt aperiam!</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, atque expedita hic debitis corporis laboriosam ullam ea officiis. Libero voluptate error quam rerum officia modi mollitia sequi maiores nisi deleniti?</p>
-        <Link to={'/filter'}>
-          <button className='w-[257px] py-2 rounded-3xl border'>View More Listing</button>
-        </Link>
-      </div>
-      <div className="w-full lg:w-1/2 flex gap-1 md:gap-10 justify-center items-center">
-        <div className="flex flex-col gap-1 md:gap-10 justify-center">
-
-          <Link to={'/profile/49'}>
-            <img src="/image/home/profile/1.png" className='w-[239px] h-[391px] ' alt="" />
-          </Link>
-
-          <Link to={'/profile/196'}>
-            <img src="/image/home/profile/2.png" className='w-[239px] h-[391px] ' alt="" />
-          </Link>
-
+function Screen2() {
+    const [count, setCount] = useState(0)
+    const [ads, setAds] = useState([])
+    const fetchData = () => {
+        axios.get(`${BackendIP}/ads/get-all-ads`).then(res => {
+            setAds(res.data)
+        })
+    }
+    useEffect(() => {
+      fetchData()
+    }, [])
+    
+    return (
+        <div className='w-full overflow-hidden bg-[#1E1E1E] py-5 ' >
+            <div style={{transform:`translate(-${count*240}px,0px)`}} className={`h-[350px]  flex items-center text-white pl-[5%] gap-5  duration-500`}>
+                <div className="w-96 flex-shrink-0 space-y-5">
+                    <div className='text-3xl cursor-pointer '>Lorem ipsum dolor sit amet consectetur. Elit dictumst velit mattis nec sed lacus at.</div>
+                    <p className='text-justify'>Lorem ipsum dolor sit amet consectetur. Vulputate arcu ornare urna nisi adipiscing penatibus ultrices duis. Magnis eget mauris imperdiet a scelerisque lacus velit cursus. Ut morbi dui diam velit sed elit.</p>
+                </div>
+                {ads.map(e=><div className="w-[230px] h-[270px] flex-shrink-0 relative">
+                    <img src={e.profilePhoto} className='h-full object-cover rounded-lg w-full  ' alt="" />
+                    <div className="absolute bottom-2 left-2">
+                        <p className='text-lg'>{e.adsTitle}</p>
+                        <p>{e.location}</p>
+                    </div>
+                </div>)}
+                
+            </div>
+            <div className="float-right  flex justify-center items-center gap-5 mr-10 text-white">
+                    <button className='rounded-full p-1 border' onClick={()=>count && setCount(count-1)}><NavigateBefore fontSize='large' /></button>
+                    <button className='rounded-full p-1 border' onClick={()=>ads.length + 1 !== count && setCount(count+1)}>         <NavigateNext   fontSize='large' /></button>
+            </div>
         </div>
-
-        <div className="flex flex-col gap-1 md:gap-10 lg:mt-10 justify-center">
-
-          <Link to={'/profile/6'}>
-            <img src="/image/home/profile/3.png" className='w-[239px] h-[391px] ' alt="" />
-          </Link>
-
-          <Link to={'/profile/222'}>
-            <img src="/image/home/profile/4.png" className='w-[239px] h-[391px] ' alt="" />
-          </Link>
-
-        </div>
-      </div>
-    </div>
-  )
+    )
 }
+
 export default Screen2

@@ -35,7 +35,7 @@ function Review({ads}) {
 
             </div>
 
-            <div className="h-[400px] w-full overflow-y-scroll">
+            <div className="max-h-[400px] lg:h-[400px] w-full overflow-y-scroll">
                 {
                     ads?.review?.map(e=><Rev name={e.username} rating={e.rating} title={e.title} desc={e.desc}  />)
                 }

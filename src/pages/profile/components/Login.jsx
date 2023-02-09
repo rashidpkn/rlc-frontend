@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function Login({setClose}) {
     return (
-        <div className="fixed inset-0 m-auto h-48 w-[600px] border bg-white z-50 rounded-xl p-5 space-y-5">
+        <div className="fixed inset-0 m-auto h-48 lg:w-[600px] border bg-white z-50 rounded-xl p-5 space-y-5">
             <div className="w-full  flex items-center justify-between text-xl border-b py-3">
                 <span>Please Login First</span>
                 <Close onClick={()=>setClose(false)} />

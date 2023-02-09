@@ -6,6 +6,9 @@ const initialState = {
         qno: 1,
         error:"",
         disableNext:true
+    },
+    filter:{
+        showFilter:false
     }
 }
 
@@ -17,10 +20,11 @@ const utilSlice = createSlice({
         back(state, { payload }) { state.newAds.qno !== 1 && --state.newAds.qno },
         setQno(state, { payload }) { state.newAds.qno = payload },
         setError(state,{payload}){state.newAds.error = payload},
-        setDisableNext(state,{payload}){state.newAds.disableNext=false}
+        setDisableNext(state,{payload}){state.newAds.disableNext=false},
+        setShowFilter(state,{payload}){state.filter.showFilter = !state.filter.showFilter}
     }
 });
 
-export const { next, back, setQno,setError,setDisableNext } = utilSlice.actions
+export const { next, back, setQno,setError,setDisableNext,setShowFilter } = utilSlice.actions
 
 export default utilSlice.reducer

@@ -32,7 +32,7 @@ function Question({ads}) {
                 </form>
             </div>
             <span className="text-white text-xl  font-medium ">Questions</span>
-            <div className="h-[400px] overflow-y-scroll">
+            <div className="max-h-[400px] lg:h-[400px] overflow-y-scroll">
                 {
                     ads?.qna?.map(e=><QNA username={e.username} question={e.question} answer={e.answer} ads={ads} />)
                 }
