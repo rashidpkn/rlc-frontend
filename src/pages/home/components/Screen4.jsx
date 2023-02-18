@@ -13,7 +13,7 @@ function Screen4() {
       fetchData()
     }, [])
   return (
-    <div className='h-screen w-full sticky top-0' >
+    <div className='lg:hidden h-screen  w-full sticky top-0' >
         <div className="absolute w-full h-full overflow-auto">
           <Screen {...ads.find(e => e.id === 2)} zIndex={1} />
           <Screen {...ads.find(e => e.id === 3)} zIndex={2} />
@@ -42,7 +42,7 @@ const Screen = ({zIndex,profilePhoto,gallery,intro,adsTitle,location}) =>{
         <div className="w-1/5 h-full items-end relative hidden lg:flex">
           <p className='rotate-[270deg] text-8xl text-red-600 absolute bottom-28 -left-14 h-max w-max'>{adsTitle}</p>
         </div>
-        <img src={profilePhoto} className='h-[80%] lg:h-full  w-full lg:w-3/5 object-cover object-top' alt="" />
+        <img src={`${BackendIP}${profilePhoto}`} className='h-[80%] lg:h-full  w-full lg:w-3/5 object-cover object-top' alt="" />
         <div className="lg:hidden ">
           <p className=' text-2xl text-red-600 text-center'>{adsTitle}</p>
           <p className=' text-2xl text-red-600 text-center'>{location}</p>
