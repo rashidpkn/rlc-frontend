@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import BackendIP from '../../../BackendIP'
 
 function Screen5() {
@@ -47,8 +48,8 @@ function Screen5() {
                     <Profile {...ads.find(e => e.id === 6)} />
                     <Profile {...ads.find(e => e.id === 7)} />
                     <Profile {...ads.find(e => e.id === 8)} />
-                    <Profile {...ads.find(e => e.id === 9)} />
                     <Profile {...ads.find(e => e.id === 11)} />
+                    <Profile {...ads.find(e => e.id === 12)} />
                 </div>
             </div>
         </div>
@@ -58,13 +59,14 @@ function Screen5() {
 export default Screen5
 
 
-const Profile = ({profilePhoto,adsTitle,location}) => {
+const Profile = ({ profilePhoto, adsTitle, location,id }) => {
+    const navigate = useNavigate()
     return (
-        <div className=" h-1/2">
+        <div className=" h-1/2" onClick={()=>navigate(`profile/${id}`)}>
             <img src={`${BackendIP}${profilePhoto}`} className='h-3/4 w-full object-cover object-top' alt="" />
             <div className="flex flex-col justify-between w-full h-1/4 p-3">
-            <p className='text-red-600 text-2xl'>{adsTitle}</p>
-            <p className='text-white'>{location}</p>
+                <p className='text-red-600 text-2xl'>{adsTitle}</p>
+                <p className='text-white'>{location}</p>
             </div>
         </div>
     )
