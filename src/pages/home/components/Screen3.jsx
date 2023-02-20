@@ -2,7 +2,6 @@ import React from 'react'
 
 function Screen3() {
     const heading = 'Lorem ipsum dolor sit amet consectetur. Ipsum urna dis natoque in ullamcorper. Suspendisse vivamus sapien diam nisl'.split(' ')
-    console.log(heading)
   return (
     <div className='p-[5%] bg-[#1E1E1E] text-white space-y-5'>
         <h2 className='text-3xl lg:text-6xl text-justify lg:text-start'>

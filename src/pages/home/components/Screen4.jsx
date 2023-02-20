@@ -35,7 +35,7 @@ const Profile = ({ profilePhoto, adsTitle, location,id }) => {
   const navigate = useNavigate()
   return (
     <div className=" h-[50vh]" onClick={()=>navigate(`profile/${id}`)}>
-      <img src={`${BackendIP}${profilePhoto}`} className='h-5/6 w-full object-cover object-top' alt="" />
+      <img src={`${profilePhoto}`} className='h-5/6 w-full object-cover object-top' alt="" />
       <div className="flex flex-col justify-between w-full h-1/6 p-3">
         <p className='text-red-600 text-2xl'>{adsTitle}</p>
         <p className='text-white'>{location}</p>
