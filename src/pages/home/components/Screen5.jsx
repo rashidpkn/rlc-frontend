@@ -84,7 +84,7 @@ function Screen5({ scroll }) {
 
     const [mainScroll, setMainScroll] = useState(false)
     return (
-        <div className={`h-screen px-5 bg-[#1e1e1e] overflow-hidden sticky top-0 space-y-5 text-white`}
+        <div className={`h-screen  bg-[#1e1e1e] overflow-hidden sticky top-0 space-y-5 text-white `}
 
         >
             <div className={`h-full w-full ${mainScroll && scroll === 100 ? 'overflow-auto' : 'overflow-hidden'}  sc`} onScroll={e => {
@@ -96,8 +96,8 @@ function Screen5({ scroll }) {
                     setMainScroll(true)
                 }
             }}>
-                <Screen setMainScroll={setMainScroll} scroll={scroll} mainScroll={mainScroll} profile={[2,4,5,6,7,8,11,12]} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/18720/thumbs/0x650/2f5455e83c82.jpeg'} location='Dubai' />
-                <Screen setMainScroll={setMainScroll} scroll={scroll} mainScroll={mainScroll} profile={[14,17,18,19,20]} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/19678/thumbs/0x650/2796be892082.jpeg'} location='Thailand' />
+                <Screen bgColor={'red'} setMainScroll={setMainScroll} scroll={scroll} mainScroll={mainScroll} profile={[2,4,5,6,7,8,11,12]} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/18720/thumbs/0x650/2f5455e83c82.jpeg'} location='Dubai' />
+                <Screen bgColor={'white'} setMainScroll={setMainScroll} scroll={scroll} mainScroll={mainScroll} profile={[14,17,18,19,20]} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/19678/thumbs/0x650/2796be892082.jpeg'} location='Thailand' />
             </div>
         </div>
     )
@@ -106,10 +106,10 @@ function Screen5({ scroll }) {
 export default Screen5
 
 
-function Screen({ setMainScroll, mainScroll, ads, img, location, scroll,profile }) {
+function Screen({ setMainScroll, mainScroll, ads, img, location, scroll,profile,bgColor }) {
 
     return (
-        <div className={`sticky top-0 flex h-full w-full space-x-5 overflow-auto sc bg-[#1e1e1e] ${mainScroll ? 'overflow-hidden' : 'overflow-auto'}`} onScroll={e => {
+        <div className={`${bgColor==='red'?'text-[#E3E3E3] bg-[#CA3A31]' : 'text-[#CA3A31] bg-[#E3E3E3]'} px-5 sticky top-0 flex h-full w-full space-x-5 overflow-auto sc  ${mainScroll ? 'overflow-hidden' : 'overflow-auto'}`} onScroll={e => {
             var { target } = e
             var percent = target.scrollTop / (target.scrollHeight - target.clientHeight) * 100
             if (percent === 100 || percent===0) {
@@ -119,21 +119,21 @@ function Screen({ setMainScroll, mainScroll, ads, img, location, scroll,profile 
             }
         }}>
 
-            <div className="sticky top-0 h-full w-3/4 flex gap-5">
-                <div className="h-full w-[70%] gap-5 flex">
-                    <div className="w-1/5 h-full relative">
-                        <p className='rotate-[270deg] text-8xl text-red-600 absolute bottom-44 -left-[6rem] h-max w-max'>{location}</p>
+            <div className="sticky top-0 h-full w-3/4 flex gap-5 ">
+                <div className="h-full w-[65%]  flex font-times">
+                    <div className="w-[20%] h-full relative">
+                        <p className='rotate-[270deg] text-8xl  absolute bottom-44 -left-[4.5rem] h-max w-max'>{location}</p>
                     </div>
-                    <div className="w-3/5 h-full ">
+                    <div className="w-[75%] h-full ">
                         <img src={img} className='h-full w-full object-cover object-top' alt="" />
                     </div>
-                    <div className="w-1/5 h-full relative">
-                        <p className='rotate-[270deg] text-3xl text-red-600 absolute top-28 -right-5 h-max w-max '>Red Light Club</p>
+                    <div className="w-[5%] h-full relative">
+                        <p className='rotate-[270deg] text-3xl  absolute top-28 -right-[5rem] h-max w-max '>Red Light Club</p>
                     </div>
                 </div>
 
-                <div className="h-full w-[30%]  flex items-center">
-                    <p className='text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus ab, modi eaque alias minima, similique laboriosam aliquid quis, facere eum praesentium doloribus magni totam omnis pariatur recusandae. Accusantium, excepturi possimus.</p>
+                <div className="h-full w-[35%]  flex items-end">
+                    <p className='text-justify pb-20'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus ab, modi eaque alias minima, similique laboriosam aliquid quis, facere eum praesentium doloribus magni totam omnis pariatur recusandae. Accusantium, excepturi possimus.</p>
                 </div>
             </div>
 
@@ -151,8 +151,8 @@ const Profile = ({ profilePhoto, adsTitle, location, id }) => {
         <div className=" h-1/2" onClick={() => navigate(`profile/${id}`)}>
             <img src={`${profilePhoto}`} className='h-3/4 w-full object-cover object-top' alt="" />
             <div className="flex flex-col justify-between w-full h-1/4 p-3">
-                <p className='text-red-600 text-2xl'>{adsTitle}</p>
-                <p className='text-white'>{location}</p>
+                <p className='text-2xl'>{adsTitle}</p>
+                <p className=''>{location}</p>
             </div>
         </div>
     )

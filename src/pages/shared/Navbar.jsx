@@ -20,8 +20,8 @@ function Navbar() {
   }, [])
   
   return (
-    <div className="bg-[#010313] text-white">
-      <nav className="hidden lg:flex h-24 justify-between px-[10%]">
+    <div className=" text-white">
+      <nav className="hidden lg:flex h-24 w-full justify-between px-[10%] absolute top-0 z-50">
         <ul className="flex gap-10 h-full justify-center items-center text-md">
           <li className="">
             <Link to={"/"}> Home </Link>
@@ -38,7 +38,7 @@ function Navbar() {
           onChange={e=>{
             setAdsTitle(e.target.value)
           }}
-            className="h-8 w-52 bg-transparent border rounded-3xl outline-none pl-3 placeholder:text-white placeholder:text-xs flex items-center capitalize"
+            className="h-10 w-52 bg-transparent border  outline-none pl-3 placeholder:text-white placeholder:text-xs flex items-center capitalize"
             type="text"
             name=""
             placeholder="Search"
@@ -53,28 +53,28 @@ function Navbar() {
                 navigate(`/profile/${profile?.id}`)
               }else window.alert('Profile not found')
           }}
-          className="h-10 px-3 text-white rounded-full bg-[#ef1010]">
+          className="h-10 px-3 text-white  ">
             Search
           </button>
           {token ? (
-            <button className="h-10 px-3 text-white rounded-full bg-[#006ef8]" onClick={() => { dispatch(setToken(undefined)); sessionStorage.clear() }}>
+            <button className="h-10 px-3 text-white " onClick={() => { dispatch(setToken(undefined)); sessionStorage.clear() }}>
               Log Out
             </button>
           ) : (
             <Link to={"/auth"}>
-              <button className="h-10 px-3 text-white rounded-full bg-[#006ef8]">
+              <button className="h-10 px-3 text-white ">
                 Log In
               </button>
             </Link>
           )}
           <Link to={"/auth"}>
-            <button className="h-10 px-3 text-white rounded-full bg-[#ef1010]">
+            <button className="h-10 px-3 text-white border border-white">
               Place Ads
             </button>
           </Link>
         </div>
       </nav>
-      <nav className='h-20 w-full flex lg:hidden justify-between items-center px-5'>
+      <nav className='bg-[#010313] h-20 w-full flex lg:hidden justify-between items-center px-5'>
         <MenuOutlined className='cursor-pointer' onClick={() => setShowMenu(!showMenu)} />
         <a href="https://my-thread.co.uk">
           <img src="/image/common/logo.svg" width={100} alt="" />

@@ -19,6 +19,7 @@ import Navbar from "./pages/shared/Navbar";
 import About from "./pages/static/about";
 import FAQ from "./pages/static/faq";
 import TermsAndConditions from "./pages/static/TermsAndConditions";
+import Test from "./pages/test";
 
 function App() {
   const { token, role } = useSelector((state) => state.user);
@@ -104,6 +105,8 @@ function App() {
           element={
             (token && role === 'advertiser') ? <NewAds /> : <Navigate to={"/auth"} />
           } />
+
+         <Route path="/test" element={<Test/>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

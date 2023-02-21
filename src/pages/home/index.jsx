@@ -10,7 +10,7 @@ const [scroll, setScroll] = useState(0)
 
   return (
 
-    <div className="home w-full h-screen overflow-auto sc"
+    <div className="home w-full h-screen overflow-auto sc relative"
       onScroll={e => {
         var { target } = e
         var percent = target.scrollTop / (target.scrollHeight - target.clientHeight) * 100
