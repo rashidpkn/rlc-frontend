@@ -22,7 +22,7 @@ function Navbar() {
   return (
     <div className="bg-[#010313] text-white">
       <nav className="hidden lg:flex h-24 justify-between px-[10%]">
-        <ul className="flex gap-10 h-full justify-center items-center text-xl">
+        <ul className="flex gap-10 h-full justify-center items-center text-md">
           <li className="">
             <Link to={"/"}> Home </Link>
           </li>

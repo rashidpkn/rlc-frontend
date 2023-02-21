@@ -39,7 +39,7 @@ function Screen2() {
                     <p className='text-justify'>Lorem ipsum dolor sit amet consectetur. Vulputate arcu ornare urna nisi adipiscing penatibus ultrices duis. Magnis eget mauris imperdiet a scelerisque lacus velit cursus. Ut morbi dui diam velit sed elit.</p>
                 </div>
                 <Profile {...ads.find(e => e.id === 2)} order={orders.order1} />
-                <Profile {...ads.find(e => e.id === 3)} order={orders.order2} />
+                <Profile {...ads.find(e => e.id === 8)} order={orders.order2} />
                 <Profile {...ads.find(e => e.id === 4)} order={orders.order3} />
                 <Profile {...ads.find(e => e.id === 5)} order={orders.order4} />
                 <Profile {...ads.find(e => e.id === 6)} order={orders.order5} />
@@ -56,7 +56,7 @@ function Screen2() {
                     <p className='text-justify'>Lorem ipsum dolor sit amet consectetur. Vulputate arcu ornare urna nisi adipiscing penatibus ultrices duis. Magnis eget mauris imperdiet a scelerisque lacus velit cursus. Ut morbi dui diam velit sed elit.</p>
                 </div>
                 <Profile {...ads.find(e => e.id === 2)} order={orders.order1} />
-                <Profile {...ads.find(e => e.id === 3)} order={orders.order2} />
+                <Profile {...ads.find(e => e.id === 8)} order={orders.order2} />
                 <Profile {...ads.find(e => e.id === 4)} order={orders.order3} />
                 <Profile {...ads.find(e => e.id === 5)} order={orders.order4} />
                 <Profile {...ads.find(e => e.id === 6)} order={orders.order5} />

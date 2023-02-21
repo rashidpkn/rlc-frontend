@@ -22,16 +22,17 @@ import TermsAndConditions from "./pages/static/TermsAndConditions";
 
 function App() {
   const { token, role } = useSelector((state) => state.user);
-useEffect(() => {
-  axios.post(`${BackendIP}/analytics`).catch(err=>{
-    window.alert(err.message)
-  })
-}, [])
+  useEffect(() => {
+    axios.post(`${BackendIP}/analytics`).catch(err => {
+      window.alert(err.message)
+    })
+  }, [])
 
   return (
     <div className="App  font-inter">
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route
           path="/"
           element={
@@ -42,8 +43,8 @@ useEffect(() => {
             </>
           }
         >
-          <Route index element={<Home />} />
-          <Route path="/import" element={<DataImport/>} />
+
+          <Route path="/import" element={<DataImport />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
           <Route
@@ -121,5 +122,5 @@ function ScrollToTop() {
   }, [pathname]);
 
   return null
-  
+
 }

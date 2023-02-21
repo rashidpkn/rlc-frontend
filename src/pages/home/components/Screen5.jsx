@@ -68,7 +68,7 @@ import BackendIP from '../../../BackendIP'
 
 
 
-function Screen5() {
+function Screen5({ scroll }) {
 
     const [ads, setAds] = useState([])
     const fetchData = () => {
@@ -84,21 +84,20 @@ function Screen5() {
 
     const [mainScroll, setMainScroll] = useState(false)
     return (
-        <div class={`h-screen px-5 bg-[#1e1e1e] overflow-hidden sticky top-0 space-y-5 text-white`}>
-            <div className={`h-full w-full ${mainScroll ? 'overflow-auto' : 'overflow-hidden'}  sc`} onScroll={e => {
+        <div className={`h-screen px-5 bg-[#1e1e1e] overflow-hidden sticky top-0 space-y-5 text-white`}
+
+        >
+            <div className={`h-full w-full ${mainScroll && scroll === 100 ? 'overflow-auto' : 'overflow-hidden'}  sc`} onScroll={e => {
                 var { target } = e
-                var st = 'scrollTop'
-                var sh = 'scrollHeight'
-                var percent = target[st] / (target[sh] - target.clientHeight) * 100
-                if ((percent === 100 || percent === 0) && mainScroll) {
+                var percent = target.scrollTop / (target.scrollHeight - target.clientHeight) * 100
+                if ((percent === 100)) {
                     setMainScroll(false)
                 } else {
                     setMainScroll(true)
                 }
-                console.log(percent)
             }}>
-                <Screen setMainScroll={setMainScroll} mainScroll={mainScroll} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/18720/thumbs/0x650/2f5455e83c82.jpeg'} location='Dubai' />
-                <Screen setMainScroll={setMainScroll} mainScroll={mainScroll} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/15067/thumbs/0x650/e954f813d90f.jpeg'} location='Thailand' />
+                <Screen setMainScroll={setMainScroll} scroll={scroll} mainScroll={mainScroll} profile={[2,4,5,6,7,8,11,12]} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/18720/thumbs/0x650/2f5455e83c82.jpeg'} location='Dubai' />
+                <Screen setMainScroll={setMainScroll} scroll={scroll} mainScroll={mainScroll} profile={[14,17,18,19,20]} ads={ads} img={'https://cm.dubaiescortstars.com/files/questionary/19678/thumbs/0x650/2796be892082.jpeg'} location='Thailand' />
             </div>
         </div>
     )
@@ -107,23 +106,20 @@ function Screen5() {
 export default Screen5
 
 
-function Screen({ setMainScroll, mainScroll, ads, img, location }) {
+function Screen({ setMainScroll, mainScroll, ads, img, location, scroll,profile }) {
 
     return (
-        <div class={`sticky top-0 flex h-full w-full space-x-5 overflow-auto sc bg-[#1e1e1e] ${mainScroll ? 'overflow-hidden' : 'overflow-auto'}`} onScroll={e => {
+        <div className={`sticky top-0 flex h-full w-full space-x-5 overflow-auto sc bg-[#1e1e1e] ${mainScroll ? 'overflow-hidden' : 'overflow-auto'}`} onScroll={e => {
             var { target } = e
-            var st = 'scrollTop'
-            var sh = 'scrollHeight'
-            var percent = target[st] / (target[sh] - target.clientHeight) * 100
-            if (percent === 100 || percent === 0) {
+            var percent = target.scrollTop / (target.scrollHeight - target.clientHeight) * 100
+            if (percent === 100 || percent===0) {
                 setMainScroll(true)
             } else {
                 setMainScroll(false)
             }
-            console.log(percent)
         }}>
 
-            <div class="sticky top-0 h-full w-3/4 flex gap-5">
+            <div className="sticky top-0 h-full w-3/4 flex gap-5">
                 <div className="h-full w-[70%] gap-5 flex">
                     <div className="w-1/5 h-full relative">
                         <p className='rotate-[270deg] text-8xl text-red-600 absolute bottom-44 -left-[6rem] h-max w-max'>{location}</p>
@@ -141,16 +137,9 @@ function Screen({ setMainScroll, mainScroll, ads, img, location }) {
                 </div>
             </div>
 
-            <div class="h-full w-1/4 space-y-5">
-                <Profile {...ads.find(e => e.id === 2)} />
-                <Profile {...ads.find(e => e.id === 3)} />
-                <Profile {...ads.find(e => e.id === 4)} />
-                <Profile {...ads.find(e => e.id === 5)} />
-                <Profile {...ads.find(e => e.id === 6)} />
-                <Profile {...ads.find(e => e.id === 7)} />
-                <Profile {...ads.find(e => e.id === 8)} />
-                <Profile {...ads.find(e => e.id === 11)} />
-                <Profile {...ads.find(e => e.id === 12)} />
+            <div className={`h-full w-1/4 space-y-5 ${scroll === 100 ? '' : 'overflow-hidden'} sc`} >
+                {profile.map(ev=><Profile key={ev} {...ads.find(e => e.id === ev)} />)}
+                
             </div>
         </div>
     )
