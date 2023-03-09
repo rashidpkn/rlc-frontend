@@ -1,3 +1,4 @@
+import { Report } from '@mui/icons-material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -9,6 +10,7 @@ import Links from './components/Links'
 import MeetWith from './components/MeetWith'
 import Photos from './components/Photos'
 import Question from './components/Question'
+import ReportAds from './components/ReportAds'
 import Review from './components/Review'
 import Services from './components/Services'
 import Title from './components/Title'
@@ -28,9 +30,9 @@ function Profile() {
           })
         )
     }, [id])
-
+const [showReport, setShowReport] = useState(false)
     return (
-        <div className='w-full lg:px-[5%]'
+        <div className='w-full lg:px-[5%] pt-24'
             style={{ background: 'linear-gradient(rgb(161, 140, 209) 0%, rgb(251, 194, 235) 100%) 0% 0% no-repeat padding-box padding-box transparent' }}>
             <div className="h-36 w-full bg-white"></div>
             <Links id={ads.id} />
@@ -43,7 +45,7 @@ function Profile() {
 
             <div className="flex flex-col lg:flex-row justify-center  h-full">
                 <Photos ads={ads} photo={photo} setPhoto={setPhoto} />
-                <div className=" lg:w-1/2 lg:h-auto bg-white p-2 lg:p-5 space-y-2 ">
+                <div className="relative lg:w-1/2 lg:h-auto bg-white p-2 pb-20 lg:pb-20 lg:p-5 space-y-2 ">
                     <div className="hidden lg:flex w-full  justify-between items-center h-14">
                         <Title ads={ads} />
                     </div>
@@ -60,6 +62,13 @@ function Profile() {
                     <MeetWith />
 
                     <Intro ads={ads} />
+                    <div className="absolute bottom-5 right-5 bg-white p-2">
+                        <div className="flex gap-1" onClick={()=>{setShowReport(!showReport)}}>
+                            <Report/> <p>Report User</p>
+                        </div>
+                    </div>
+
+                    {showReport && <ReportAds {...ads}/>}
 
                 </div>
             </div>

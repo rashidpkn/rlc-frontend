@@ -9,7 +9,6 @@ import { Chart as ChartJS ,CategoryScale,
     Legend,} from "chart.js";
 
 function Graph({date,view}) {
-      console.log(date,view)
     ChartJS.register(
         CategoryScale,
         LinearScale,

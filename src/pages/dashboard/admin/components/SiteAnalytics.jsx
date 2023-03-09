@@ -9,11 +9,16 @@ function SiteAnalytics() {
     const [view, setView] = useState([])
     useEffect(() => {
         axios.get(`${BackendIP}/analytics`).then(res => {
+            let date = []
+            let view = []
             //eslint-disable-next-line
             res.data.map(e => {
-                setDate([...date, e.date])
-                setView([...view, e.view])
+                date.push(e.date)
+                view.push(e.view)
+                
             })
+            setDate(date)
+            setView(view)
         })
         //eslint-disable-next-line
     }, [])

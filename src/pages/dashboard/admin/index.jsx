@@ -5,10 +5,12 @@ import Main from '../components/Main'
 import Menu from '../components/Menu'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
+import EditAds from '../user/components/EditAds'
 import Auction from './components/Auction'
 import Banner from './components/Banner'
 import BidPayments from './components/BidPayments'
 import Blacklisted from './components/Blacklisted'
+import Customers from './components/Customers'
 import Manage from './components/Manage'
 import PaymentForAdverts from './components/PaymentForAdverts'
 import PaymentsHistory from './components/PaymentsHistory'
@@ -16,6 +18,7 @@ import ProfileAnalytics from './components/ProfileAnalytics'
 import Reports from './components/Reports'
 import SiteAnalytics from './components/SiteAnalytics'
 import Support from './components/Support'
+import Verification from './components/Verification'
 
 
 function AdminDashboard() {
@@ -55,6 +58,9 @@ function AdminDashboard() {
           {menu === 'blacklisted' && <Blacklisted />}
           {menu === 'Support' && <Support />}
           {menu === 'Reports-issues' && <Reports />}
+          {menu === 'customers' && <Customers />}
+          {menu === 'verification' && <Verification />}
+          {menu === 'edit' && <EditAds/>}
         </Main>
       </div>
     </div>

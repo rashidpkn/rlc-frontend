@@ -9,6 +9,9 @@ const initialState = {
     },
     filter:{
         showFilter:false
+    },
+    dashboard:{
+        id:''
     }
 }
 
@@ -21,10 +24,11 @@ const utilSlice = createSlice({
         setQno(state, { payload }) { state.newAds.qno = payload },
         setError(state,{payload}){state.newAds.error = payload},
         setDisableNext(state,{payload}){state.newAds.disableNext=false},
-        setShowFilter(state,{payload}){state.filter.showFilter = !state.filter.showFilter}
+        setShowFilter(state,{payload}){state.filter.showFilter = !state.filter.showFilter},
+        setId({dashboard},{payload}){dashboard.id = payload}
     }
 });
 
-export const { next, back, setQno,setError,setDisableNext,setShowFilter } = utilSlice.actions
+export const { next, back, setQno,setError,setDisableNext,setShowFilter,setId } = utilSlice.actions
 
 export default utilSlice.reducer

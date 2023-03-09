@@ -15,6 +15,7 @@ import HomeMenu from './components/HomeMenu'
 import Manage from './components/Manage'
 import SettingsMenu from './components/SettingsMenu'
 import Verify from './components/Verify'
+import VerifyAds from './components/VerifyAds'
 
 
 function UserDashboard() {
@@ -25,6 +26,7 @@ function UserDashboard() {
       <Verify />
       <div className='flex h-screen'>
         <Sidebar >
+          
           <div className="space-y-5">
             <Menu icon={<Home fontSize='medium' />} url='home' title={'Home'} />
             <Menu icon={<Edit fontSize='medium' />} url='my-adverts' title={'Manage My Advets'} />
@@ -35,6 +37,7 @@ function UserDashboard() {
             <Menu icon={<Settings fontSize='medium' />} url='settings' title={'Settings'} />
             <Menu icon={<PersonOff fontSize='medium' />} url='blacklisted' title={'Blacklisted Clients'} />
           </div>
+          
           <div className="blue w-[90%] h-40 border mx-auto rounded-2xl bg-[#44D7FD] mt-5 hidden lg:flex flex-col text-white text-xl p-5">
             <p>Increase Your Revenue, <br /> With Red Light Club!</p>
           </div>
@@ -53,6 +56,7 @@ function UserDashboard() {
             {menu === 'settings' && <SettingsMenu />}
             {menu === 'blacklisted' && <Blacklisted />}
             {menu === 'edit' && <EditAds />}
+            {menu === 'verify' && <VerifyAds />}
 
           </Main>
         </div>

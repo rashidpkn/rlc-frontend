@@ -1,8 +1,11 @@
 import { Block, LiveTv, VerifiedOutlined, Visibility } from '@mui/icons-material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 // import { useSelector } from 'react-redux'
 import BackendIP from '../../../../BackendIP'
+import { setId } from '../../../../redux/slice/utilSlice'
 import Buttons from './Buttons'
 
 function Manage() {
@@ -122,7 +125,8 @@ function Button({ color, icon, title, amount, image }) {
 }
 
 
-const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData }) => {
+const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData,id }) => {
+    const dispatch = useDispatch()
     return (
         <div className={` card h-96 w-64 flex flex-col  border items-center justify-center  relative z-40`}>
 
@@ -143,8 +147,10 @@ const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData }) => {
             </div>
 
             <div className={`h-[15%] w-full absolute bottom-5 flex justify-around items-center `}>
-                <button className='border-2 border-[#6426c3] rounded-2xl h-10 w-16 justify-center items-center flex'>View</button>
-                <button className='border-2 rounded-2xl h-10 w-16 border-[#5ECFFF]'>Edit</button>
+                <Link to={`/profile/${id}`}>  <button className='border-2 border-[#6426c3] rounded-2xl h-10 w-16 justify-center items-center flex'>View</button></Link>
+                <Link to={'/dashboard/edit'}>
+                    <button className='border-2 rounded-2xl h-10 w-16 border-[#5ECFFF]' onClick={() => dispatch(setId(id))}>Edit</button>
+                </Link>
                 <button className='border-2 rounded-2xl h-10 w-16 border-[#E328AF]' onClick={() => {
                     axios.post(`${BackendIP}/ads/delete`, { adsTitle }).then(res => {
                         window.alert(res.data.reason)

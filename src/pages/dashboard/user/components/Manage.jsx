@@ -2,9 +2,10 @@
 import { Visibility } from '@mui/icons-material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import BackendIP from '../../../../BackendIP'
+import { setId } from '../../../../redux/slice/utilSlice'
 import Buttons from './Buttons'
 
 function Manage() {
@@ -34,19 +35,19 @@ function Manage() {
 
             {
                 selector === 1 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                    {ads.map(e => <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
+                    {ads.map(e => <Card verify={e.verify} id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
                 </div>
             }
 
             {
                 selector === 2 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                    {ads.map(e => e.visibility === true && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
+                    {ads.map(e => e.visibility === true && <Card verify={e.verify} id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
                 </div>
             }
 
             {
                 selector === 3 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                    {ads.map(e => e.visibility === false && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
+                    {ads.map(e => e.visibility === false && <Card verify={e.verify} id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} vacation={e.vacation} />)}
                 </div>
             }
 
@@ -63,7 +64,8 @@ function Manage() {
 export default Manage
 
 
-const Card = ({id, profilePhoto, adsTitle, view, nationality, fetchData,vacation }) => {
+const Card = ({ id, profilePhoto, adsTitle, view, nationality, fetchData, vacation, verify }) => {
+    const dispatch = useDispatch()
     return (
         <div className={` card h-96 w-64 flex flex-col  border items-center justify-center  relative z-40`}>
 
@@ -75,8 +77,8 @@ const Card = ({id, profilePhoto, adsTitle, view, nationality, fetchData,vacation
                             type="checkbox"
                             className="sr-only peer"
                             checked={vacation}
-                            onChange={e=>{
-                                axios.post(`${BackendIP}/ads/vacation`,{id,vacation:e.target.checked}).then(res=>{
+                            onChange={e => {
+                                axios.post(`${BackendIP}/ads/vacation`, { id, vacation: e.target.checked }).then(res => {
                                     window.alert(res.data.reason)
                                     fetchData()
                                 })
@@ -113,9 +115,14 @@ const Card = ({id, profilePhoto, adsTitle, view, nationality, fetchData,vacation
             </div>
 
             <div className={`h-[15%] w-full absolute bottom-5 flex justify-around items-center `}>
-                <button className='border-2 border-[#6426c3] rounded-2xl h-10 w-16 justify-center items-center flex'>Verify</button>
+                {verify !== true ?
+                    <Link to={'/dashboard/verify'}>
+                        <button className='border-2 border-[#6426c3] rounded-2xl h-10 w-16 justify-center items-center flex' onClick={() => dispatch(setId(id))}>Verify</button>
+                    </Link>
+                    :
+                    <button className='border-2 border-[#6426c3] rounded-2xl h-10 w-16 justify-center items-center flex' onClick={() => { window.alert("Already  Verified") }}>Verified</button>}
                 <Link to={'/dashboard/edit'}>
-                    <button className='border-2 rounded-2xl h-10 w-16 border-[#5ECFFF]'>Edit</button>
+                    <button className='border-2 rounded-2xl h-10 w-16 border-[#5ECFFF]' onClick={() => dispatch(setId(id))}>Edit</button>
                 </Link>
                 <button className='border-2 rounded-2xl h-10 w-16 border-[#E328AF]' onClick={() => {
                     axios.post(`${BackendIP}/ads/delete`, { adsTitle }).then(res => {

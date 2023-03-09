@@ -1,10 +1,11 @@
+import { Verified } from '@mui/icons-material'
 import React from 'react'
 
 function Title({ ads }) {
     return (
         <>
             <div className="">
-                <h2 className='text-lg lg:text-2xl font-medium'>{ads.adsTitle}</h2>
+                <h2 className='text-lg lg:text-2xl font-medium'>{ads.adsTitle}  {ads.verify && <Verified fontSize='large' className='text-[#1976D2]' />}</h2>
                 <p className='inline-block '>Last seen Online 31/01/2023</p>
             </div>
 
