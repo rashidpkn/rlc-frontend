@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-const Silver = ({ id, profilePhoto, adsTitle, introduction, age, setIsLogin }) => {
+const Silver = ({ id, profilePhoto, adsTitle, intro, age, setIsLogin }) => {
     const navigate = useNavigate()
     return (
         <div className='w-[220px]  rounded-xl overflow-hidden cursor-pointer'>
@@ -14,7 +14,7 @@ const Silver = ({ id, profilePhoto, adsTitle, introduction, age, setIsLogin }) =
                     <span className='capitalize font-medium'>{adsTitle.split(' ')[0]}</span>
                     <span className='font-medium'>{age}Y</span>
                 </div>
-                <p className='text-sm text-white text-justify'>{`${introduction.slice(0, 120)}.`}</p>
+                <p className='text-sm text-white text-justify'>{`${intro.slice(0, 120)}.`}</p>
                 {/* <p className='text-xs text-white text-justify'>{introduction}</p> */}
             </div>
         </div>

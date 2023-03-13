@@ -3,7 +3,7 @@ const Menu = ({ icon, title, url }) => {
     const { menu } = useParams()
     return (
         <Link to={`/dashboard/${url}`} title={title}>
-            <div className={`${menu === url ? 'text-[#6418C3]' : 'text-[#a5a5a5]'} h-10 flex lg:pl-5 justify-center lg:justify-between items-center `}>
+            <div className={`${menu === url || ((title==='Home' || title==='Manage Advets') && menu === undefined) ? 'text-[#6418C3]' : 'text-[#a5a5a5]'} h-10 flex lg:pl-5 justify-center lg:justify-between items-center `}>
                 <div className="w-[20%]">
                     {icon}
                 </div>

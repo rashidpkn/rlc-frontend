@@ -1,4 +1,4 @@
-import { Block, LiveTv, VerifiedOutlined, Visibility } from '@mui/icons-material'
+import { Block, LiveTv, Person, VerifiedOutlined, Visibility } from '@mui/icons-material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -26,14 +26,18 @@ function Manage() {
 
     return (
         <div className='h-full w-full space-y-5'>
-            <h1 className='text-2xl font-bold'>Manage</h1>
+            <h1 className='text-2xl font-bold'>Manage Advets</h1>
             <Buttons />
             <Progress />
             <h1 className='text-2xl font-bold'>Profile</h1>
             <div className="flex justify-center md:justify-start  w-full border-b gap-10  text-lg font-assistant mt-10">
                 <button onClick={() => setSelector(1)} className={`${selector === 1 && 'border-b-[3px]'} border-[#6426c3]`}>All</button>
-                <button onClick={() => setSelector(2)} className={`${selector === 2 && 'border-b-[3px]'} border-[#5ecfff]`}>Live</button>
-                <button onClick={() => setSelector(3)} className={`${selector === 3 && 'border-b-[3px]'} border-[#e328af]`}>Blocked</button>
+                <button onClick={() => setSelector(2)} className={`${selector === 2 && 'border-b-[3px]'} border-[#5ecfff]`}>Active</button>
+                <button onClick={() => setSelector(3)} className={`${selector === 3 && 'border-b-[3px]'} border-[#5ecfff]`}>Inactive</button>
+                <Link to={'/dashboard/verification'}>
+                    <button onClick={() => setSelector(4)} className={`${selector === 4 && 'border-b-[3px]'} border-[#5ecfff]`}>Pending Verification</button>
+                </Link>
+                <button onClick={() => setSelector(5)} className={`${selector === 5 && 'border-b-[3px]'} border-[#e328af]`}>Blocked</button>
             </div>
             {
                 selector === 1 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
@@ -48,7 +52,7 @@ function Manage() {
             }
 
             {
-                selector === 3 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+                selector === 5 && <div className="flex flex-wrap justify-center lg:justify-start gap-5">
                     {ads.map(e => e.visibility === false && <Card id={e.id} profilePhoto={e.profilePhoto} adsTitle={e.adsTitle} view={e.view} nationality={e.nationality} fetchData={fetchData} />)}
                 </div>
             }
@@ -76,12 +80,24 @@ const Progress = () => {
                 </div>
             </div>
 
-            <div className="Actice Ads h-48 w-72 bg-white rounded-2xl" >
-                <Button color={'#E328AF'} icon={<VerifiedOutlined />} title={'Pending Verification'} amount={50} image='/images/common/graph/graph3.png' />
-                <div className="w-full h-[30%] bg-[#E328AF] rounded-b-2xl flex items-center pl-5">
-                    <MonthlyProgress progress={15} />
+            <Link to={'/dashboard/verification'}>
+                <div className="Actice Ads h-48 w-72 bg-white rounded-2xl" >
+                    <Button color={'#E328AF'} icon={<VerifiedOutlined />} title={'Pending Verification'} amount={50} image='/images/common/graph/graph3.png' />
+                    <div className="w-full h-[30%] bg-[#E328AF] rounded-b-2xl flex items-center pl-5">
+                        <MonthlyProgress progress={15} />
+                    </div>
                 </div>
-            </div>
+            </Link>
+
+            <Link to={'/dashboard/customers'}>
+                <div className="Actice Ads h-48 w-72 bg-white rounded-2xl">
+                    <Button color={'#5ECFFF'} icon={<Person />} title={'Customers'} amount={151} image='/images/common/graph/graph2.png' />
+                    <div className="w-full h-[30%] bg-[#5ECFFF] rounded-b-2xl flex items-center pl-5">
+                        <MonthlyProgress progress={12} />
+                    </div>
+                </div>
+            </Link>
+
         </div>
     )
 }
@@ -125,7 +141,7 @@ function Button({ color, icon, title, amount, image }) {
 }
 
 
-const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData,id }) => {
+const Card = ({ profilePhoto, adsTitle, view, nationality, fetchData, id }) => {
     const dispatch = useDispatch()
     return (
         <div className={` card h-96 w-64 flex flex-col  border items-center justify-center  relative z-40`}>
